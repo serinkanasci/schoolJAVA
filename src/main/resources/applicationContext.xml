@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="com.example.demo"/>
+    <aop:aspectj-autoproxy />
+
+    <bean id="Logging" class="Logs.Logging"/>
+
+    <aop:config>
+        <aop:pointcut id="" expression=""/>
+    </aop:config>
+
+
+    <bean id="Classe1" class="com.example.demo.Classe">
+        <constructor-arg value="CM1 A" type="String"></constructor-arg>
+    </bean>
+    <bean id="Classe2" class="com.example.demo.Classe">
+        <constructor-arg value="CP B" type="String"></constructor-arg>
+    </bean>
+
+    <bean id="Enseignant1" class="com.example.demo.Enseignant">
+        <constructor-arg value="Plaisant " type="String"></constructor-arg>
+        <constructor-arg value="Patrick" type="String"></constructor-arg>
+        <constructor-arg value="PPlaisant " type="String"></constructor-arg>
+        <constructor-arg value="0000" type="String"></constructor-arg>
+    </bean>
+    <bean id="Enseignant2" class="com.example.demo.Enseignant">
+        <constructor-arg value="Marteau" type="String"></constructor-arg>
+        <constructor-arg value="Jean" type="String"></constructor-arg>
+        <constructor-arg value="JMarteau " type="String"></constructor-arg>
+        <constructor-arg value="0000" type="String"></constructor-arg>
+    </bean>
+
+    <bean id="Parent1" class="com.example.demo.Parent">
+        <constructor-arg value="Dupont" type="String"></constructor-arg>
+        <constructor-arg value="Louise" type="String"></constructor-arg>
+        <constructor-arg value="LDupont" type="String"></constructor-arg>
+        <constructor-arg value="0000" type="String"></constructor-arg>
+    </bean>
+    <bean id="Parent2" class="com.example.demo.Parent">
+        <constructor-arg value="Dupont" type="String"></constructor-arg>
+        <constructor-arg value="Louis" type="String"></constructor-arg>
+        <constructor-arg value="LoDupont" type="String"></constructor-arg>
+        <constructor-arg value="0000" type="String"></constructor-arg>
+    </bean>
+    <bean id="Parent3" class="com.example.demo.Parent">
+        <constructor-arg value="Jaeger" type="String"></constructor-arg>
+        <constructor-arg value="Grisha" type="String"></constructor-arg>
+        <constructor-arg value="GJaeger" type="String"></constructor-arg>
+        <constructor-arg value="0000" type="String"></constructor-arg>
+    </bean>
+
+    <bean id="Eleve1" class="com.example.demo.Eleve">
+        <constructor-arg value="Dupont" type="String"></constructor-arg>
+        <constructor-arg value="Gabriel" type="String"></constructor-arg>
+        <constructor-arg value="GDupont" type="String"></constructor-arg>
+        <constructor-arg value="0000" type="String"></constructor-arg>
+    </bean>
+    <bean id="Eleve2" class="com.example.demo.Eleve">
+        <constructor-arg value="Dupont" type="String"></constructor-arg>
+        <constructor-arg value="Gabrielle" type="String"></constructor-arg>
+        <constructor-arg value="GaDupont" type="String"></constructor-arg>
+        <constructor-arg value="0000" type="String"></constructor-arg>
+    </bean>
+    <bean id="Eleve3" class="com.example.demo.Eleve">
+        <constructor-arg value="Jaeger " type="String"></constructor-arg>
+        <constructor-arg value="Eren" type="String"></constructor-arg>
+        <constructor-arg value="EJaeger" type="String"></constructor-arg>
+        <constructor-arg value="0000" type="String"></constructor-arg>
+    </bean>
+</beans>
+
+
+       http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
