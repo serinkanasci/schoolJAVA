@@ -1,9 +1,11 @@
 package com.example.demo;
 
+import java.sql.*;
 import java.util.ArrayList;
 
 public class Classe {
     private String nom;
+    private int id;
     private ArrayList<Eleve> eleves = new ArrayList<Eleve>();
     private ArrayList<Enseignant> profs = new ArrayList<Enseignant>();
     private ArrayList<Mot> mots = new ArrayList<Mot>();
@@ -15,7 +17,7 @@ public class Classe {
     }
 
     public String toString() {
-        return "Nom de la classe : " + nom;
+        return "ID de la classe :" + id + " Nom de la classe : " + nom;
     }
 
     public String getNom()
@@ -23,10 +25,21 @@ public class Classe {
         return nom;
     }
 
+    public int getID()
+    {
+        return id;
+    }
+
     public void setNom(String _nom)
     {
         this.nom = _nom;
     }
+
+    public void setID(int _ID)
+    {
+        this.id = _ID;
+    }
+
 
     public ArrayList<Eleve> getEleves()
     {
@@ -86,6 +99,121 @@ public class Classe {
             nbMots++;
         }
         return nbMots;
+    }
+
+    public void enregistre(Connection conn) throws SQLException {
+        String SQL = "INSERT INTO Classe(nom, idClasseEleve, idClasseEnseignant, idMotClasse) VALUES (?,?,?,?)";
+        try(PreparedStatement pstmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS))
+        {
+            pstmt.setString(1, this.getNom());
+            pstmt.setInt(2, this.getClasseEleveID(conn));
+            pstmt.setInt(3, this.getClasseEnseignantID(conn));
+            pstmt.setInt(4, this.getMotClasseID(conn));
+
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()){
+                setID(rs.getInt(1));
+            }
+
+            pstmt.execute();
+            pstmt.close();
+            System.out.println("Classe created !");
+        }catch (SQLIntegrityConstraintViolationException e) {
+            System.out.println("Classe already created !");
+        }catch (Exception e){
+            System.out.println("ERROR CREATING Classe !!! " + e);
+        }
+
+    }
+
+    public void deleteClasse(Connection conn) throws SQLException {
+        try {
+            String query = "DELETE FROM Classe WHERE id='" + this.getID() + "'";
+            // create the java statement
+            Statement st = conn.createStatement();
+            // execute the query, and get a java resultset
+            st.executeUpdate(query);
+            System.out.println("Classe deleted successfully");
+            st.close();
+        } catch (Exception e) {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void updateClasse(Connection conn, String _nom, int _idClasseEleve, int _idClasseEnseignant, int _idMotClasse) throws SQLException {
+        try {
+            String query = "UPDATE Classe SET nom='" + _nom + "', idClasseEleve='" + _idClasseEleve
+                    + "', idClasseEnseignant='" + _idClasseEnseignant + "', idMotClasse='" + _idMotClasse + "' WHERE id='"
+                    + this.getID() + "'";
+            // create the java statement
+            Statement st = conn.createStatement();
+            // execute the query, and get a java resultset
+            st.executeUpdate(query);
+            System.out.println("Classe updated successfully");
+            st.close();
+        } catch (Exception e) {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public int getClasseEleveID(Connection conn) throws SQLException {
+        int _id = 0;
+        try {
+            String query = "SELECT id FROM ClasseEleve WHERE idClasse='" + this.getID()  + "'";
+            // create the java statement
+            Statement st = conn.createStatement();
+            // execute the query, and get a java resultset
+            ResultSet rs = st.executeQuery(query);
+            _id = rs.getInt("id");
+            System.out.format("%s\n", _id);
+
+            st.close();
+        } catch (Exception e) {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+        return _id;
+    }
+
+    public int getClasseEnseignantID(Connection conn) throws SQLException{
+        int _id = 0;
+        try{
+            String query = "SELECT id FROM ClasseEnseignant WHERE idClasse='" + this.getID() + "'";
+            // create the java statement
+            Statement st = conn.createStatement();
+            // execute the query, and get a java resultset
+            ResultSet rs = st.executeQuery(query);
+            _id = rs.getInt("id");
+            System.out.format("%s\n", _id);
+
+            st.close();
+        }catch (Exception e)
+        {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+        return _id;
+    }
+
+    public int getMotClasseID(Connection conn) throws SQLException {
+        int _id = 0;
+        try {
+            String query = "SELECT id FROM MotClasse WHERE idClasse='" + this.getID() + "'";
+            // create the java statement
+            Statement st = conn.createStatement();
+            // execute the query, and get a java resultset
+            ResultSet rs = st.executeQuery(query);
+            _id = rs.getInt("id");
+            System.out.format("%s\n", _id);
+
+            st.close();
+        } catch (Exception e) {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+        return _id;
     }
 
 }

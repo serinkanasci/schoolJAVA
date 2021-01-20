@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.sql.*;
+
 public class Utilisateur {
 
     private String nom;
@@ -59,4 +61,53 @@ public class Utilisateur {
         this.motDePasse = _motDePasse;
     }
 
+    public void enregistre(Connection conn) throws SQLException {
+        String SQL = "INSERT INTO Utilisateur(nom, prenom, login, motDePasse) VALUES (?,?,?,?)";
+        try(PreparedStatement pstmt = conn.prepareStatement(SQL))
+        {
+            pstmt.setString(1, this.getNom());
+            pstmt.setString(2, this.getPrenom());
+            pstmt.setString(3, this.getLogin());
+            pstmt.setString(4, this.getMotDePasse());
+
+            pstmt.execute();
+            pstmt.close();
+            System.out.println("User created !");
+        }catch (SQLIntegrityConstraintViolationException e) {
+            System.out.println("User already created !");
+        }catch (Exception e){
+            System.out.println("ERROR CREATING USER !!! " + e);
+        }
+    }
+
+    public void deleteUser(Connection conn) throws SQLException {
+        try {
+            String query = "DELETE FROM Utilisateur WHERE nomPrenom='" + this.getNom() + this.getPrenom() + "'";
+            // create the java statement
+            Statement st = conn.createStatement();
+            // execute the query, and get a java resultset
+            st.executeUpdate(query);
+            System.out.println("User deleted successfully");
+            st.close();
+        } catch (Exception e) {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void updateUser(Connection conn, String _nom,String _prenom,String _login,String _motDePasse) throws SQLException {
+        try {
+            String query = "UPDATE Utilisateur SET nom='" + _nom + "', prenom='" + _prenom + "', login='" + _login +
+                    "', motDePasse='" + _motDePasse + "' WHERE nomPrenom='" + this.getNom() + this.getPrenom() + "'";
+            // create the java statement
+            Statement st = conn.createStatement();
+            // execute the query, and get a java resultset
+            st.executeUpdate(query);
+            System.out.println("User updated successfully");
+            st.close();
+        } catch (Exception e) {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+    }
 }

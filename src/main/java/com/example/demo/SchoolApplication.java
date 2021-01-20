@@ -9,14 +9,15 @@ import java.sql.*;
 import java.io.FileInputStream;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import com.mysql.jdbc.Driver;
 
 @SpringBootApplication
 public class SchoolApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
         Properties props = new Properties();
-        try(FileInputStream fis = new FileInputStream("demo\\conf.properties")) {
+        try(FileInputStream fis = new FileInputStream("conf.properties")) {
             props.load(fis);
         } catch (Exception e) {
             System.out.println(e);

@@ -5,15 +5,17 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <context:component-scan base-package="com.example.demo"/>
     <aop:aspectj-autoproxy />
 
     <bean id="Logging" class="Logs.Logging"/>
 
     <aop:config>
-        <aop:pointcut id="" expression=""/>
+        <aop:pointcut id="EcolePointcut" expression="execution(* com.example.demo.*(..))"/>
+        <aop:aspect id="LoggingAspect" ref="Logging">
+            <aop:before method="beforeMethod" pointcut-ref="EcolePointcut"/>
+            <aop:after-returning method="afterMethod" pointcut-ref="EcolePointcut" returning="result"/>
+        </aop:aspect>
     </aop:config>
-
 
     <bean id="Classe1" class="com.example.demo.Classe">
         <constructor-arg value="CM1 A" type="String"></constructor-arg>
@@ -75,4 +77,5 @@
 </beans>
 
 
-       http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+<!-- http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+<context:component-scan base-package="com.example.demo"/> -->
