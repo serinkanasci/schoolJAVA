@@ -105,15 +105,15 @@ public class Classe {
         String SQL = "INSERT INTO Classe(nom, idClasseEleve, idClasseEnseignant, idMotClasse) VALUES (?,?,?,?)";
         try(PreparedStatement pstmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS))
         {
-            pstmt.setString(1, this.getNom());
-            pstmt.setInt(2, this.getClasseEleveID(conn));
-            pstmt.setInt(3, this.getClasseEnseignantID(conn));
-            pstmt.setInt(4, this.getMotClasseID(conn));
-
             ResultSet rs = pstmt.getGeneratedKeys();
             if (rs.next()){
                 setID(rs.getInt(1));
             }
+
+            pstmt.setString(1, this.getNom());
+            pstmt.setInt(2, this.getID());
+            pstmt.setInt(3, this.getID());
+            pstmt.setInt(4, this.getID());
 
             pstmt.execute();
             pstmt.close();

@@ -121,16 +121,16 @@ public class Mot {
         String SQL = "INSERT INTO Mot(texte, idEnseignant, idMotEleve, idMotParent, idMotClasse) VALUES (?,?,?,?,?)";
         try(PreparedStatement pstmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS))
         {
-            pstmt.setString(1, this.getMessage());
-            pstmt.setString(2, this.getEnseignant().getNom() + this.getEnseignant().getPrenom());
-            pstmt.setInt(3, this.getMotEleveID(conn));
-            pstmt.setInt(4, this.getMotParentID(conn));
-            pstmt.setInt(5, this.getMotClasseID(conn));
-
             ResultSet rs = pstmt.getGeneratedKeys();
             if (rs.next()){
                 setID(rs.getInt(1));
             }
+
+            pstmt.setString(1, this.getMessage());
+            pstmt.setString(2, this.getEnseignant().getNom() + this.getEnseignant().getPrenom());
+            pstmt.setInt(3, this.getID());
+            pstmt.setInt(4, this.getID());
+            pstmt.setInt(5, this.getID());
 
             pstmt.execute();
             pstmt.close();

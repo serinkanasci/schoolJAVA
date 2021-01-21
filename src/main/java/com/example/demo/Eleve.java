@@ -103,9 +103,9 @@ public class Eleve extends Utilisateur {
         try(PreparedStatement pstmt = conn.prepareStatement(SQL))
         {
             pstmt.setString(1, this.getNom() + this.getPrenom());
-            pstmt.setInt(2, this.getParentEleveID(conn));
-            pstmt.setInt(3, this.getClasseEleveID(conn));
-            pstmt.setInt(4, this.getMotEleveID(conn));
+            pstmt.setString(2, this.getNom() + this.getPrenom());
+            pstmt.setString(3, this.getNom() + this.getPrenom());
+            pstmt.setString(4, this.getNom() + this.getPrenom());
 
             pstmt.execute();
             pstmt.close();

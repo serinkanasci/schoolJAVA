@@ -16,15 +16,15 @@ CREATE TABLE IF NOT EXISTS Enseignant(
 
 CREATE TABLE IF NOT EXISTS Eleve(
     nomPrenom VARCHAR(100) NOT NULL PRIMARY KEY REFERENCES Utilisateur(nom,prenom),
-    idParentEleve INT NULL REFERENCES ParentEleve(id),
-    idClasseEleve INT NULL REFERENCES ClasseEleve(id),
-    idMotEleve INT NULL REFERENCES MotEleve(id)
+    idParentEleve INT NULL REFERENCES ParentEleve(idEleve),
+    idClasseEleve INT NULL REFERENCES ClasseEleve(idEleve),
+    idMotEleve INT NULL REFERENCES MotEleve(idEleve)
 );
 
 CREATE TABLE IF NOT EXISTS Parent (
     nomPrenom VARCHAR(100) NOT NULL PRIMARY KEY REFERENCES Utilisateur(nom,prenom),
-    idMotParent INT NULL REFERENCES MotParent(id),
-    idParentEleve INT NULL REFERENCES ParentEleve(id)
+    idMotParent INT NULL REFERENCES MotParent(idParent),
+    idParentEleve INT NULL REFERENCES ParentEleve(idParent)
 );
 
 CREATE TABLE IF NOT EXISTS Devoir (
@@ -41,18 +41,18 @@ CREATE TABLE IF NOT EXISTS Devoir (
 CREATE TABLE IF NOT EXISTS Classe (
     id AUTO_INCREMENT NOT NULL PRIMARY KEY,
     nom VARCHAR(50) NOT NULL,
-    idClasseEleve INT NOT NULL REFERENCES ClasseEleve(id),
-    idClasseEnseignant INT NOT NULL REFERENCES ClasseEnseignant(id),
-    idMotClasse INT NULL REFERENCES MotClasse(id)
+    idClasseEleve INT NOT NULL REFERENCES ClasseEleve(idClasse),
+    idClasseEnseignant INT NOT NULL REFERENCES ClasseEnseignant(idClasse),
+    idMotClasse INT NULL REFERENCES MotClasse(idClasse)
 );
 
 CREATE TABLE IF NOT EXISTS Mot (
     id AUTO_INCREMENT NOT NULL PRIMARY KEY,
     texte TEXT NOT NULL,
     idEnseignant VARCHAR(100) NOT NULL REFERENCES Enseignant(nomPrenom),
-    idMotEleve INT NULL REFERENCES MotEleve(id),
-    idMotParent INT NULL REFERENCES MotParent(id),
-    idMotClasse INT NULL REFERENCES MotClasse(id)
+    idMotEleve INT NULL REFERENCES MotEleve(idMot),
+    idMotParent INT NULL REFERENCES MotParent(idMot),
+    idMotClasse INT NULL REFERENCES MotClasse(idMot)
 );
 
 CREATE TABLE IF NOT EXISTS Rendu (
@@ -98,6 +98,7 @@ CREATE TABLE IF NOT EXISTS ClasseEnseignant (
     idClasse INT NOT NULL REFERENCES Classe(id),
     idEnseignant VARCHAR(100) NOT NULL REFERENCES Enseignant(nomPrenom)
 );
+
 INSERT INTO Utilisateur(nom, prenom, login, motDePasse)
 VALUES ('lo','az', 'Tezst','fds'), ('gt','yt', 'fdsfs','fsdfsd'),
 ('ds','fd', 'jytj','drfhger'), ('df','gf', 'fzert','razezeaz');

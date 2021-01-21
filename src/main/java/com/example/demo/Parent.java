@@ -61,8 +61,8 @@ public class Parent extends Utilisateur {
         try(PreparedStatement pstmt = conn.prepareStatement(SQL))
         {
             pstmt.setString(1, this.getNom() + this.getPrenom());
-            pstmt.setInt(2, this.getMotParentID(conn));
-            pstmt.setInt(3, this.getParentEleveID(conn));
+            pstmt.setString(2, this.getNom() + this.getPrenom());
+            pstmt.setString(3, this.getNom() + this.getPrenom());
 
             pstmt.execute();
             pstmt.close();

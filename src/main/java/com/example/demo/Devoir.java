@@ -129,6 +129,11 @@ public class Devoir {
         String SQL = "INSERT INTO Devoir(texte, documents, liens, dateButoir, idEleve, idEnseignant, idClasse) VALUES (?,?,?,?,?,?,?)";
         try(PreparedStatement pstmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS))
         {
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()){
+                setID(rs.getInt(1));
+            }
+
             pstmt.setString(1, this.getTexte());
             pstmt.setString(2, this.getDocuments());
             pstmt.setString(3, this.getLiens());
@@ -136,11 +141,6 @@ public class Devoir {
             pstmt.setString(5, null);
             pstmt.setString(6, this.getEnseignant().getNom() + this.getEnseignant().getPrenom());
             pstmt.setInt(7, this.getClasse().getID());
-
-            ResultSet rs = pstmt.getGeneratedKeys();
-            if (rs.next()){
-                setID(rs.getInt(1));
-            }
 
             pstmt.execute();
             pstmt.close();

@@ -83,15 +83,15 @@ public class Rendu {
         String SQL = "INSERT INTO Rendu(contenu, dateRendu, idEleve, idDevoir) VALUES (?,?,?,?)";
         try(PreparedStatement pstmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS))
         {
-            pstmt.setString(1, this.getContenu());
-            pstmt.setDate(2, this.getDateRendu());
-            pstmt.setString(3, this.getEleve().getNom() + this.getEleve().getPrenom());
-            pstmt.setInt(4, this.getDevoir().getID());
-
             ResultSet rs = pstmt.getGeneratedKeys();
             if (rs.next()){
                 setID(rs.getInt(1));
             }
+
+            pstmt.setString(1, this.getContenu());
+            pstmt.setDate(2, this.getDateRendu());
+            pstmt.setString(3, this.getEleve().getNom() + this.getEleve().getPrenom());
+            pstmt.setInt(4, this.getDevoir().getID());
 
             pstmt.execute();
             pstmt.close();
