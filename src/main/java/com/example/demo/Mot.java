@@ -117,7 +117,7 @@ public class Mot {
     idMotClasse INT NULL REFERENCES MotClasse(id)
 */
 
-    public void enregistre(Connection conn) throws SQLException {
+    public void enregistreMot(Connection conn) throws SQLException {
         String SQL = "INSERT INTO Mot(texte, idEnseignant, idMotEleve, idMotParent, idMotClasse) VALUES (?,?,?,?,?)";
         try(PreparedStatement pstmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS))
         {

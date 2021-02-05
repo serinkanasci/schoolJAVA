@@ -101,7 +101,7 @@ public class Classe {
         return nbMots;
     }
 
-    public void enregistre(Connection conn) throws SQLException {
+    public void enregistreClasse(Connection conn) throws SQLException {
         String SQL = "INSERT INTO Classe(nom, idClasseEleve, idClasseEnseignant, idMotClasse) VALUES (?,?,?,?)";
         try(PreparedStatement pstmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS))
         {

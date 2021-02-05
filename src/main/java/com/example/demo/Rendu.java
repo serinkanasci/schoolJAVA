@@ -79,7 +79,7 @@ public class Rendu {
     idEleve VARCHAR(100) REFERENCES Eleve(nomPrenom),
     idDevoir INT REFERENCES Devoir(id)*/
 
-    public void enregistre(Connection conn) throws SQLException {
+    public void enregistreRendu(Connection conn) throws SQLException {
         String SQL = "INSERT INTO Rendu(contenu, dateRendu, idEleve, idDevoir) VALUES (?,?,?,?)";
         try(PreparedStatement pstmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS))
         {

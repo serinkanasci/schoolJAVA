@@ -61,7 +61,7 @@ public class Utilisateur {
         this.motDePasse = _motDePasse;
     }
 
-    public void enregistre(Connection conn) throws SQLException {
+    public void enregistreUser(Connection conn) throws SQLException {
         String SQL = "INSERT INTO Utilisateur(nom, prenom, login, motDePasse) VALUES (?,?,?,?)";
         try(PreparedStatement pstmt = conn.prepareStatement(SQL))
         {
@@ -82,7 +82,7 @@ public class Utilisateur {
 
     public void deleteUser(Connection conn) throws SQLException {
         try {
-            String query = "DELETE FROM Utilisateur WHERE nomPrenom='" + this.getNom() + this.getPrenom() + "'";
+            String query = "DELETE FROM Utilisateur WHERE nom='" + this.getNom() + "' AND prenom='" + this.getPrenom() + "'" ;
             // create the java statement
             Statement st = conn.createStatement();
             // execute the query, and get a java resultset

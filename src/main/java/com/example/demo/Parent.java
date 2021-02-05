@@ -16,6 +16,10 @@ public class Parent extends Utilisateur {
         return this.getToString();
     }
 
+    public String getID() {
+        return this.getNom() + this.getPrenom();
+    }
+
     public ArrayList<Eleve> getEleves()
     {
         return eleves;
@@ -56,13 +60,13 @@ public class Parent extends Utilisateur {
         return nbMots;
     }
 
-    public void enregistre(Connection conn) throws SQLException {
+    public void enregistreParent(Connection conn) throws SQLException {
         String SQL = "INSERT INTO Parent(nomPrenom,idMotParent,idParentEleve) VALUES (?,?,?)";
         try(PreparedStatement pstmt = conn.prepareStatement(SQL))
         {
             pstmt.setString(1, this.getNom() + this.getPrenom());
-            pstmt.setString(2, null);
-            pstmt.setString(3, null);
+            pstmt.setString(2, this.getNom() + this.getPrenom());
+            pstmt.setString(3, this.getNom() + this.getPrenom());
 
             pstmt.execute();
             pstmt.close();
@@ -72,6 +76,8 @@ public class Parent extends Utilisateur {
         }catch (Exception e){
             System.out.println("ERROR CREATING Parent !!! " + e);
         }
+
+        this.enregistreUser(conn);
     }
 
     public void deleteParent(Connection conn) throws SQLException {
@@ -87,6 +93,8 @@ public class Parent extends Utilisateur {
             System.err.println("Got an exception! ");
             System.err.println(e.getMessage());
         }
+
+        this.deleteUser(conn);
     }
 
     public void updateParent(Connection conn, String _nomPrenom, int _idMotParent, int _idParentEleve) throws SQLException {

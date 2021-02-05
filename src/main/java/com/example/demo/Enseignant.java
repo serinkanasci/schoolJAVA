@@ -15,6 +15,10 @@ public class Enseignant extends Utilisateur {
         return this.getToString();
     }
 
+    public String getID() {
+        return this.getNom() + this.getPrenom();
+    }
+
     public ArrayList<Classe> getClasses()
     {
         return classes;
@@ -35,7 +39,7 @@ public class Enseignant extends Utilisateur {
         return nbClasses;
     }
 
-    public void enregistre(Connection conn) throws SQLException {
+    public void enregistreEnseignant(Connection conn) throws SQLException {
         String SQL = "INSERT INTO Enseignant(nomPrenom) VALUES (?)";
         try(PreparedStatement pstmt = conn.prepareStatement(SQL))
         {
@@ -49,6 +53,8 @@ public class Enseignant extends Utilisateur {
         }catch (Exception e){
             System.out.println("ERROR CREATING Enseignant !!! " + e);
         }
+
+        this.enregistreUser(conn);
     }
 
     public void deleteEnseignant(Connection conn) throws SQLException {

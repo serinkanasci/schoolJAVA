@@ -55,6 +55,8 @@ public class SchoolApplication {
         Eleve eleve2 = (Eleve)fac.getBean("Eleve2");
         Eleve eleve3 = (Eleve)fac.getBean("Eleve3");
 
+        Relations relation = new Relations();
+
         eleve1.addParent(parent1);
         eleve1.addParent(parent2);
         eleve1.addClasse(classe1);
@@ -71,7 +73,38 @@ public class SchoolApplication {
 
         parent2.addEleve(eleve1);
         parent2.addEleve(eleve2);
-        parent2.enregistre(conn);
+
+        /*parent1.enregistreParent(conn);
+        parent2.enregistreParent(conn);
+        parent3.enregistreParent(conn);
+
+        eleve1.enregistreEleve(conn);
+        eleve2.enregistreEleve(conn);
+        eleve3.enregistreEleve(conn);
+
+        prof1.enregistreEnseignant(conn);
+        prof2.enregistreEnseignant(conn);
+
+        parent1.deleteParent(conn);
+        parent2.deleteParent(conn);
+        parent3.deleteParent(conn);
+
+        eleve1.deleteEleve(conn);
+        eleve2.deleteEleve(conn);
+        eleve3.deleteEleve(conn);
+
+        prof1.deleteEnseignant(conn);
+        prof2.deleteEnseignant(conn);*/
+
+        /*classe1.enregistreClasse(conn);
+        classe2.enregistreClasse(conn);
+
+        classe1.deleteClasse(conn);
+        classe2.deleteClasse(conn);*/
+
+        /*parent1.enregistreParent(conn);
+        eleve1.enregistreEleve(conn);
+        relation.enregistreParentEleve(conn, parent1.getID(), eleve1.getID());*/
 
         parent3.addEleve(eleve3);
 

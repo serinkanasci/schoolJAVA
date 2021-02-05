@@ -18,6 +18,10 @@ public class Eleve extends Utilisateur {
         return this.getToString();
     }
 
+    public String getID() {
+        return this.getNom() + this.getPrenom();
+    }
+
     public ArrayList<Mot> getMots()
     {
         return mots;
@@ -98,7 +102,7 @@ public class Eleve extends Utilisateur {
         return nbDevoirs;
     }
 
-    public void enregistre(Connection conn) throws SQLException {
+    public void enregistreEleve(Connection conn) throws SQLException {
         String SQL = "INSERT INTO Eleve(nomPrenom, idParentEleve, idClasseEleve, idMotEleve) VALUES (?,?,?,?)";
         try(PreparedStatement pstmt = conn.prepareStatement(SQL))
         {
@@ -115,6 +119,8 @@ public class Eleve extends Utilisateur {
         }catch (Exception e){
             System.out.println("ERROR CREATING Eleve !!! " + e);
         }
+
+        this.enregistreUser(conn);
     }
 
     public void deleteEleve(Connection conn) throws SQLException {
@@ -130,6 +136,7 @@ public class Eleve extends Utilisateur {
             System.err.println("Got an exception! ");
             System.err.println(e.getMessage());
         }
+        this.deleteUser(conn);
     }
 
     public void updateEleve(Connection conn, String _nomPrenom, int _idParentEleve, int _idClasseEleve, int _idMotEleve) throws SQLException {
