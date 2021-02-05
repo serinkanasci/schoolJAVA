@@ -71,6 +71,7 @@ public class SchoolApplication {
 
         parent2.addEleve(eleve1);
         parent2.addEleve(eleve2);
+        parent2.enregistre(conn);
 
         parent3.addEleve(eleve3);
 
